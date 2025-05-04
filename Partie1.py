@@ -11,8 +11,9 @@ def extraction(file, filename):
     
     parser = PDBParser(QUIET=True)#on évite d'afficher les anomalies du fichier 
     structure = parser.get_structure(file, filename)#on récupère la structure de la protéine avec toute les informations
-
     return structure 
+
+extraction('pdb','prot.pdb')
 
 #il faut convertir chaque acide amine en 1 caractère pour pouvoir correspondre au valeur de l'echelle choisit 
 #je créé un dico pour pouvoir ensuite comparé les aa de la prot au dico et ainsi convertir les 3 caractères en 1 seul
@@ -32,6 +33,7 @@ def dico_aa():
         aa[cle] = valeur
 
     for line in file:
+
         line = list(line.strip().upper().split(' '))
 
         if len(line) < 2 :
@@ -94,7 +96,6 @@ def acide_amine(file, filename):
                 for residue in chain :#on regarde chaque acide aminé de la chaine 
                     if is_aa(residue, standard = True):
                         res_nom = residue.get_resname()#on récupère le nom de l'aa
-                        print(res_nom)
                         if res_nom in aa:
                             nom = aa[res_nom]
                             res_id = residue.get_id()[1]#on récupère sa position
@@ -105,11 +106,11 @@ def acide_amine(file, filename):
 
 #acide_amine('proteine', 'prot.pdb')#verification de la fonction 
 
-def profil_hydro():
+def profil_hydro(file):
     """On construit le dictionnaire de l'hydrophobicité des aa de la protéine 
     la clé est la position de l'aa dans la chaine de la prot, et la valeur est une liste qui contient l'aa et son hydrophobicité"""
 
-    aa = acide_amine('proteine', 'prot.pdb')#on récupère le dictionnaire des aa de la prot avec leur position comme clé et l'aa en valeur
+    aa = acide_amine('proteine', file)#on récupère le dictionnaire des aa de la prot avec leur position comme clé et l'aa en valeur
     hydro = dico_echelle_K_D()#on récupère le dictionnaire de l'echelle avec comme clé l'aa et la valeur son hydrophobicité
 
     profil = {}#on intialise le dicitonnaire qui contient tout 
@@ -127,7 +128,6 @@ def profil_hydro():
 
     return profil
         
-
 
 
 
