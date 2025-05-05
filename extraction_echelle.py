@@ -76,6 +76,7 @@ def dico_echelle_K_D():
     return echelle 
 
 def dico_HW():
+    """On convertit le fichier texte de l'échelle Hop et Woods en un dictionnaire"""
     file = open("echelle_HW.txt", "r")
     echelle = {}
 
@@ -102,6 +103,7 @@ def dico_HW():
     return echelle 
 
 def dico_C():
+    """On transforme le fichier texte de l'echelle de Cornette en dictionnaire """
     file = open("echelle.c", "r")
     echelle = {}
 
@@ -159,7 +161,10 @@ def acide_amine(file, filename):
 
 def profil_hydro(file, echelle):
     """On construit le dictionnaire de l'hydrophobicité des aa de la protéine 
-    la clé est la position de l'aa dans la chaine de la prot, et la valeur est une liste qui contient l'aa et son hydrophobicité"""
+    la clé est la position de l'aa dans la chaine de la prot, et la valeur est une liste qui contient l'aa et son hydrophobicité
+    Paramètre : 
+        file : fichier pdb de la protéine
+        echelle : fonction dictionnaire de l'echelle que l'on souhaite utiliser """
 
     aa = acide_amine('proteine', file)#on récupère le dictionnaire des aa de la prot avec leur position comme clé et l'aa en valeur
     hydro = echelle#on récupère le dictionnaire de l'echelle avec comme clé l'aa et la valeur son hydrophobicité
