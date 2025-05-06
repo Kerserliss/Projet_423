@@ -183,7 +183,6 @@ def profil_hydro(file, echelle):
                     profil[key].append(valeur2)#on ajoute l'hydophobicité
 
     return profil
-        
 
 
 
