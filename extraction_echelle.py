@@ -1,5 +1,7 @@
-#Projet BI423
+#Projet BI423 Ellyna Soumelis , Percevault Lysa, LDDI
+
 #Extraction des données du fichier PDB
+
 from Bio.PDB import PDBParser
 from Bio.PDB.Polypeptide import is_aa
 
@@ -15,24 +17,22 @@ def extraction(file, filename):
 
 extraction('pdb','prot.pdb')
 
-#il faut convertir chaque acide amine en 1 caractère pour pouvoir correspondre au valeur de l'echelle choisit 
-#je créé un dico pour pouvoir ensuite comparé les aa de la prot au dico et ainsi convertir les 3 caractères en 1 seul
-#sans avoir le besoin de faire pleins de if 
+
 def dico_aa():
     """On convertit chaque acide aminé en 1 seul caractère 
     correspondant pour pouvoir les faire correspondre aux échelles d'hydrophobicité """
     
-    file = open('aa.txt', 'r')
-    aa = {}
+    file = open('aa.txt', 'r')#on ouvre le fichier texte 
+    aa = {}#on créé un dictionnaire vide 
 
-    line = list(file.readline().strip().upper().split(' '))
+    line = list(file.readline().strip().upper().split(' '))#chaque ligne du fichier texte est transformé en liste 
 
-    cle = line[0]
-    valeur = line[1]
+    cle = line[0]#le premier élément correspondant aux 3 caractères est définis comme la clé 
+    valeur = line[1]#le deuxième élément correspondant à 1 seul caractère est définis comme la valeur 
     if cle not in aa:
         aa[cle] = valeur
 
-    for line in file:
+    for line in file:#on parcours toute les lignes du fichier 
 
         line = list(line.strip().upper().split(' '))
 
@@ -41,7 +41,7 @@ def dico_aa():
         cle = line[0]
         valeur = line[1]
         
-        if cle not in aa:
+        if cle not in aa:#on ajoute les valeurs dans le dictionnaire 
             aa[cle] = valeur
 
     file.close()   
@@ -55,8 +55,8 @@ def dico_echelle_K_D():
 
     line = list(file.readline().strip().split(' '))
 
-    cle = line[0]
-    valeur = line[1]
+    cle = line[0]#la clé est l'acide aminé 
+    valeur = line[1]#la valeur correspond à son hydrophobicité 
     if cle not in echelle:
         echelle[cle] = valeur
     
@@ -140,14 +140,14 @@ def acide_amine(file, filename):
     data = extraction(file,filename)#on obtien la structure
     aa = dico_aa()
     liste_aa = {}#on initialise un dictionnaire pour stocker les données des acides aminés
-    liste_id =[]
+    liste_id =[]#on initialise une liste pour stocker les id des chaines des acides aminés
     for model in data:#on regarde pour chaque etat 3D de la protéine
         for chain in model:#on regarde chaque chaine d'aa dans l'etat 3D
             c_id = chain.get_id()
             if c_id not in liste_id:
                 liste_id.append(c_id)
                 for residue in chain :#on regarde chaque acide aminé de la chaine 
-                    if is_aa(residue, standard = True):
+                    if is_aa(residue, standard = True):#on vérifie que c'est un acide aminé correspondant aux acides aminés standard 
                         res_nom = residue.get_resname()#on récupère le nom de l'aa
                         if res_nom in aa:
                             nom = aa[res_nom]
@@ -157,7 +157,6 @@ def acide_amine(file, filename):
 
     return liste_aa
 
-#acide_amine('proteine', 'prot.pdb')#verification de la fonction 
 
 def profil_hydro(file, echelle):
     """On construit le dictionnaire de l'hydrophobicité des aa de la protéine 
