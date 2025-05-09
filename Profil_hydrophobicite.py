@@ -1,6 +1,6 @@
 #Module pour gérer la creation du profil d'hydrophobicité 
 import matplotlib.pyplot as plt 
-import Partie1 as P
+import extraction_echelle as exc
 #import scale as sc
 
 def calcul_hydro(fenetre):
@@ -22,6 +22,7 @@ def conv_into_list(dico):
     """
     return [float(value[1]) for value in dico.values()]
 
+
 def profil_hydrophobicite(dic_prot_values,size):
     """
     Fonction qui avec le nom de la protéine, le dictionnaire de la protéine et la taille de fenêtre renvoie un 
@@ -32,7 +33,6 @@ def profil_hydrophobicite(dic_prot_values,size):
         size : La taille de la fenêtre.
     """
     list_prot = conv_into_list(dic_prot_values)
-
     # On calcule le millieu de la fenêtre et on initialize le tableau de valeur
     middle = size //2
     values = []
@@ -52,7 +52,7 @@ def profil_hydrophobicite(dic_prot_values,size):
     axs.set_title(' Hydrophobicity profil ( Windows size = ' + str(size) +  ' ) ') 
     axs.set_xlabel(' lenght = ' + str(len(list_prot)))
     axs.set_ylabel(' Value ')
-    print(type(fig))
-    print(fig)
+
+    # On retourne la figure
     return fig
 

@@ -104,7 +104,7 @@ def dico_HW():
 
 def dico_C():
     """On transforme le fichier texte de l'echelle de Cornette en dictionnaire """
-    file = open("echelle.c", "r")
+    file = open("echelle_C.txt", "r")
     echelle = {}
 
     line = list(file.readline().strip().split(' '))
@@ -182,7 +182,6 @@ def profil_hydro(file, echelle):
                     profil[key].append(valeur2)#on ajoute l'hydophobicité
 
     return profil
-        
 
 
 
