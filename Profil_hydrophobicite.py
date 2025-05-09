@@ -22,14 +22,6 @@ def conv_into_list(dico):
     """
     return [float(value[1]) for value in dico.values()]
 
-def get_aa(dico):
-    liste = [value[0] for value in dico.values()]
-    seq =''
-    i = 0
-    while i < len(liste):
-        seq += liste[i]
-        i+= 1
-    return seq
 
 def profil_hydrophobicite(dic_prot_values,size):
     """
@@ -63,3 +55,4 @@ def profil_hydrophobicite(dic_prot_values,size):
 
     # On retourne la figure
     return fig
+
