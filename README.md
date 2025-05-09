@@ -10,7 +10,7 @@ io est normalement déjà contenu dans l'installation python de base.
 ### EXECUTION DE L'APPLICATION 
 Pour pouvoir faire tourner l'interface utilisateur, ouvrez votre terminal en ayant ouvert ce dossier et tapez :
 ``` 
- python -m streamlit main.py
+ python -m streamlit run main.py
 ```
 
 ### QUE FAIT CETTE APPLICATION 
