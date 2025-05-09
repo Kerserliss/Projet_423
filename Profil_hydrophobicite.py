@@ -35,15 +35,21 @@ def profil_hydrophobicite(dic_prot_values,size):
     list_prot = conv_into_list(dic_prot_values)
     # On calcule le millieu de la fenêtre et on initialize le tableau de valeur
     middle = size //2
-    values = []
+    values = [None for i in range(middle)]  # Pour avoir les bons calculs, on initialise a None nos 'middle' premiers
 
     # On fait notre boucle pour parcourir tout le long de la liste et de faire la moyenne
     # a chaque fois des acides aminés qui sont avant et après notre position i = middle.
-    for i in range(middle,len(list_prot)-middle):  # Pour ne pas calculer les 3 premiers et poiuvoir calculer une moyenne correcte.
+    for i in range(middle,len(list_prot)-middle):  # Pour ne pas calculer les 'middle' premiers et derniers et pouvoir calculer une moyenne correcte.
         fenetre = list_prot[i-middle:i+middle+1]  # On récupère les valeurs.
         val = calcul_hydro(fenetre)  # On récupère la moyenne.
         values.append(val)  # On ajoute a notre tableau de valeurs
     
+    # On fait la même chose au début et a la fin, donc on rajoute None au 'middle' derniers
+    j = 0
+    while j < middle:
+        values.append(None)
+        j+= 1
+
     # On trace le graphe.
     fig,axs = plt.subplots()
     axs.plot(values)
